@@ -1,0 +1,123 @@
+Shift,Department,Semester,Class,Course,Faculty,Hours
+Shift 1,Computer Science,I,UG 1st Year,Language,Tamil 1,6
+Shift 1,Computer Science,I,UG 1st Year,English,English 1,6
+Shift 1,Computer Science,I,UG 1st Year,Python,PTA 1,5
+Shift 1,Computer Science,I,UG 1st Year,Python Lab,PTA 1,3
+Shift 1,Computer Science,I,UG 1st Year,Digital Logic Fundamentals,PTA 2,4
+Shift 1,Computer Science,I,UG 1st Year,C Lab,Ms.G.Sudha,2
+Shift 1,Computer Science,I,UG 1st Year,Advanced EXCEL Lab,Dr.N.Sujatha,2
+Shift 1,Computer Science,I,UG 1st Year,Value Education,Dr.G.Sujatha,2
+Shift 1,Computer Science,II,UG 1st Year,Language,Tamil 1,6
+Shift 1,Computer Science,II,UG 1st Year,English,English 1,6
+Shift 1,Computer Science,II,UG 1st Year,Data Structure, ,5
+Shift 1,Computer Science,II,UG 1st Year,Data Structure Lab, ,3
+Shift 1,Computer Science,II,UG 1st Year,C Lab, ,2
+Shift 1,Computer Science,II,UG 1st Year,Discrete Mathematics, ,4
+Shift 1,Computer Science,II,UG 1st Year,Web Design Lab, ,2
+Shift 1,Computer Science,II,UG 1st Year,Web Design, ,2
+Shift 1,Computer Science,III,UG 2nd Year,Language,Tamil 1,6
+Shift 1,Computer Science,III,UG 2nd Year,English,English 1,6
+Shift 1,Computer Science,III,UG 2nd Year,Microprocessor,Ms.G.Sudha,5
+Shift 1,Computer Science,III,UG 2nd Year,Microprocessor Lab,Ms.G.Sudha,3
+Shift 1,Computer Science,III,UG 2nd Year,Statistical Methods,Ms.G.Sudha,4
+Shift 1,Computer Science,III,UG 2nd Year,PHP Lab,PTA 2,2
+Shift 1,Computer Science,III,UG 2nd Year,Cyber Security,PTA 1,1
+Shift 1,Computer Science,III,UG 2nd Year,Visual Basic Lab,PTA 1,2
+Shift 1,Computer Science,III,UG 2nd Year,Environmental Studies,Dr.M.Sumathi,1
+Shift 1,Computer Science,IV,UG 2nd Year,Language, ,6
+Shift 1,Computer Science,IV,UG 2nd Year,English, ,6
+Shift 1,Computer Science,IV,UG 2nd Year,Java, ,4
+Shift 1,Computer Science,IV,UG 2nd Year,Java Lab, ,3
+Shift 1,Computer Science,IV,UG 2nd Year,PHP Lab, ,2
+Shift 1,Computer Science,IV,UG 2nd Year,Resource Management Techniques, ,4
+Shift 1,Computer Science,IV,UG 2nd Year,Problem Solving Techniques, ,2
+Shift 1,Computer Science,IV,UG 2nd Year,php, ,2
+Shift 1,Computer Science,IV,UG 2nd Year,Soft Skills, ,1
+Shift 1,Computer Science,V,UG 3rd Year,Software Engineering,Dr.P.Punitha Ponmalar,5
+Shift 1,Computer Science,V,UG 3rd Year,DBMS,Dr.G.Sujatha,5
+Shift 1,Computer Science,V,UG 3rd Year,DBMS Lab,Dr.G.Sujatha,6
+Shift 1,Computer Science,V,UG 3rd Year,Project,Dr.N.Sujatha,4
+Shift 1,Computer Science,V,UG 3rd Year,Data Mining,PTA 2,4
+Shift 1,Computer Science,V,UG 3rd Year,Operating System,Ms.G.Sudha,4
+Shift 1,Computer Science,V,UG 3rd Year,Value Education,PTA 1,2
+Shift 1,Computer Science,V,UG 3rd Year,Internship,-,0
+Shift 1,Computer Science,VI,UG 3rd Year,Computer Networks, ,6
+Shift 1,Computer Science,VI,UG 3rd Year,.NET, ,6
+Shift 1,Computer Science,VI,UG 3rd Year,.NET Lab, ,6
+Shift 1,Computer Science,VI,UG 3rd Year,Computer Graphics, ,5
+Shift 1,Computer Science,VI,UG 3rd Year,Artificial Intelligence, ,5
+Shift 1,Computer Science,VI,UG 3rd Year,Image Processing using MATLAB, ,2
+Shift 1,Computer Science,VI,UG 3rd Year,Extension Activity,-,0
+Shift 1,Computer Science,I,PG 1st Year,Analysis & Design,Dr.S.Suguna,6
+Shift 1,Computer Science,I,PG 1st Year,OOAD,Dr.N.Sujatha,6
+Shift 1,Computer Science,I,PG 1st Year,Algorithms and OOPS Lab,Dr.S.Suguna,6
+Shift 1,Computer Science,I,PG 1st Year,Python Lab,Dr.P.Punitha Ponmalar,6
+Shift 1,Computer Science,I,PG 1st Year,Python,Dr.P.Punitha Ponmalar,6
+Shift 1,Computer Science,II,PG 1st Year,Data Mining, ,6
+Shift 1,Computer Science,II,PG 1st Year,Advanced Java, ,6
+Shift 1,Computer Science,II,PG 1st Year,Advanced Java Lab, ,6
+Shift 1,Computer Science,II,PG 1st Year,AI & Machine Learning, ,5
+Shift 1,Computer Science,II,PG 1st Year,Advanced Operating System, ,5
+Shift 1,Computer Science,II,PG 1st Year,VB.NET Lab, ,2
+Shift 1,Computer Science,III,PG 2nd Year,Cloud Computing,Dr.G.Sujatha,6
+Shift 1,Computer Science,III,PG 2nd Year,DIP,Dr.M.Sumathi,6
+Shift 1,Computer Science,III,PG 2nd Year,DIP using MATLAB Lab,Dr.M.Sumathi,6
+Shift 1,Computer Science,III,PG 2nd Year,Statistical Computing,Dr.S.Suguna,5
+Shift 1,Computer Science,III,PG 2nd Year,Network Security,Dr.N.Sujatha,5
+Shift 1,Computer Science,III,PG 2nd Year,AI Tools Lab,Dr.N.Sujatha,2
+Shift 1,Computer Science,III,PG 2nd Year,Internship,-,0
+Shift 1,Computer Science,IV,PG 2nd Year,Big Data Analytics, ,6
+Shift 1,Computer Science,IV,PG 2nd Year,Internet of Things, ,6
+Shift 1,Computer Science,IV,PG 2nd Year,Project, ,10
+Shift 1,Computer Science,IV,PG 2nd Year,Data Analytics & Latex Lab, ,5
+Shift 1,Computer Science,IV,PG 2nd Year,General Studies, ,3
+Shift 1,Computer Science,IV,PG 2nd Year,Extension Activity,-,0
+Shift 2,Computer Science,I,UG 1st Year,Language,Tamil 2,6
+Shift 2,Computer Science,I,UG 1st Year,English,English 2,6
+Shift 2,Computer Science,I,UG 1st Year,Python,PM,5
+Shift 2,Computer Science,I,UG 1st Year,Python Lab,PM,3
+Shift 2,Computer Science,I,UG 1st Year,Digital Logic Fundamentals,KS,4
+Shift 2,Computer Science,I,UG 1st Year,C Lab,KS,2
+Shift 2,Computer Science,I,UG 1st Year,Advanced EXCEL Lab,KS,2
+Shift 2,Computer Science,I,UG 1st Year,Value Education,KS,2
+Shift 2,Computer Science,II,UG 1st Year,Language, ,6
+Shift 2,Computer Science,II,UG 1st Year,English, ,6
+Shift 2,Computer Science,II,UG 1st Year,Data Structure, ,5
+Shift 2,Computer Science,II,UG 1st Year,Data Structure Lab, ,3
+Shift 2,Computer Science,II,UG 1st Year,C Lab, ,2
+Shift 2,Computer Science,II,UG 1st Year,Discrete Mathematics, ,4 
+Shift 2,Computer Science,II,UG 1st Year,Web Design Lab, ,2
+Shift 2,Computer Science,II,UG 1st Year,Web Design, ,2
+Shift 2,Computer Science,III,UG 2nd Year,Language,Tamil 2,6
+Shift 2,Computer Science,III,UG 2nd Year,English,English 2,6
+Shift 2,Computer Science,III,UG 2nd Year,Microprocessor,MV,5
+Shift 2,Computer Science,III,UG 2nd Year,Microprocessor Lab,MV,3
+Shift 2,Computer Science,III,UG 2nd Year,Statistical Methods,PM,4
+Shift 2,Computer Science,III,UG 2nd Year,PHP Lab,MV,2
+Shift 2,Computer Science,III,UG 2nd Year,Cyber Security,HS,1
+Shift 2,Computer Science,III,UG 2nd Year,Visual Basic Lab,MV,2
+Shift 2,Computer Science,III,UG 2nd Year,Environmental Studies,KS,1
+Shift 2,Computer Science,IV,UG 2nd Year,Language, ,6
+Shift 2,Computer Science,IV,UG 2nd Year,English, ,6
+Shift 2,Computer Science,IV,UG 2nd Year,Java, ,4
+Shift 2,Computer Science,IV,UG 2nd Year,Java Lab, ,3
+Shift 2,Computer Science,IV,UG 2nd Year,PHP Lab, ,2
+Shift 2,Computer Science,IV,UG 2nd Year,Resource Management Techniques, ,4
+Shift 2,Computer Science,IV,UG 2nd Year,Problem Solving Skills, ,2
+Shift 2,Computer Science,IV,UG 2nd Year,PHP, ,2
+Shift 2,Computer Science,IV,UG 2nd Year,Soft Skills, ,1
+Shift 2,Computer Science,V,UG 3rd Year,Software Engineering,KS,5
+Shift 2,Computer Science,V,UG 3rd Year,DBMS,HS,5
+Shift 2,Computer Science,V,UG 3rd Year,DBMS Lab,HS,6
+Shift 2,Computer Science,V,UG 3rd Year,Project,HS,4
+Shift 2,Computer Science,V,UG 3rd Year,Data Mining,MV,4
+Shift 2,Computer Science,V,UG 3rd Year,Operating System,HS,4
+Shift 2,Computer Science,V,UG 3rd Year,Value Education,MV,2
+Shift 2,Computer Science,V,UG 3rd Year,Internship,-,0
+Shift 2,Computer Science,VI,UG 3rd Year,Computer Networks, ,6
+Shift 2,Computer Science,VI,UG 3rd Year,.NET, ,6
+Shift 2,Computer Science,VI,UG 3rd Year,.NET Lab, ,6
+Shift 2,Computer Science,VI,UG 3rd Year,Computer Graphics, ,5
+Shift 2,Computer Science,VI,UG 3rd Year,Artificial Intelligence, ,5
+Shift 2,Computer Science,VI,UG 3rd Year,Image Processing using MATLAB, ,2
+Shift 2,Computer Science,VI,UG 3rd Year,Extension Activity,-,0

@@ -1,0 +1,19 @@
+ExamType,Semester,DayOrder,Date,Day
+Internal 1,ODD,I,21.08.2026,Friday
+Internal 1,ODD,II,24.08.2026,Monday
+Internal 1,ODD,III,25.08.2026,Tuesday
+Internal 1,ODD,IV,26.08.2026,Wednesday
+Internal 1,ODD,V,27.08.2026,Thursday
+Internal 1,ODD,VI,29.08.2026,Saturday
+Internal 2,ODD,I,21.09.2026,Monday
+Internal 2,ODD,II,22.09.2026,Tuesday
+Internal 2,ODD,III,23.09.2026,Wednesday
+Internal 2,ODD,IV,24.09.2026,Thursday
+Internal 2,ODD,V,25.09.2026,Friday
+Internal 2,ODD,VI,26.09.2026,Saturday
+Model,ODD,I,12.10.2026,Monday
+Model,ODD,II,13.10.2026,Tuesday
+Model,ODD,III,14.10.2026,Wednesday
+Model,ODD,IV,15.10.2026,Thursday
+Model,ODD,V,16.10.2026,Friday
+Model,ODD,VI,17.10.2026,Saturday

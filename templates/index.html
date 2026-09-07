@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timetable Generator</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta name="theme-color" content="#4A90D9">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("{{ url_for('static', filename='sw.js') }}");
+  }
+</script>
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ HOME ============ -->
+  <section class="screen" id="screen-home">
+    <header class="top-header">
+      <h1>TIMETABLE GENERATOR</h1>
+    </header>
+    <div class="hero-wrap">
+      <div class="hero-cal">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <div class="hero-cal-clock"></div>
+      </div>
+    </div>
+    <div class="screen-body">
+      <div id="homeDayOrderWidget"></div>
+      <nav class="menu-list">
+        <button class="menu-row" data-nav="screen-overview">
+          <span class="icon-badge">🔎</span>
+          <span class="row-label">Overview</span>
+          <span class="chev">›</span>
+        </button>
+        <button class="menu-row" data-nav="screen-timetable">
+          <span class="icon-badge">🗓️</span>
+          <span class="row-label">Timetable</span>
+          <span class="chev">›</span>
+        </button>
+        <button class="menu-row" data-nav="screen-dayorder">
+          <span class="icon-badge">✅</span>
+          <span class="row-label">Day Order</span>
+          <span class="chev">›</span>
+        </button>
+        <button class="menu-row" data-nav="screen-settings-login">
+          <span class="icon-badge">⚙️</span>
+          <span class="row-label">Settings</span>
+          <span class="chev">›</span>
+        </button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ TIMETABLE ============ -->
+  <section class="screen hidden" id="screen-timetable">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>TIMETABLE</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+
+      <div class="filters-card">
+        <div class="field-row">
+          <label>Department
+            <select id="tt-dept"></select>
+          </label>
+          <label>Shift
+            <select id="tt-shift"></select>
+          </label>
+          <label>Term
+            <select id="tt-term">
+              <option value="ODD">Odd Semester</option>
+              <option value="EVEN">Even Semester</option>
+            </select>
+          </label>
+        </div>
+        <div class="field-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="tt-shared-lab">
+            Shift 1 &amp; Shift 2 share the same lab room
+          </label>
+        </div>
+      </div>
+
+      <button class="pill-btn" id="generateBtn">✨ Generate Timetable</button>
+      <p class="small-note" id="tt-genNote">Pick Department / Shift / Term above, then generate. All 5 timetables below will use this run — regenerate only if faculty/courses changed.</p>
+
+      <div class="subtype-grid">
+        <button class="subtype-btn" data-view="all" disabled>
+          <span class="circle">🗓️</span><span class="label">Master</span>
+        </button>
+        <button class="subtype-btn" data-view="student" disabled>
+          <span class="circle">🎓</span><span class="label">Student</span>
+        </button>
+        <button class="subtype-btn" data-view="faculty" disabled>
+          <span class="circle">👩‍🏫</span><span class="label">Faculty</span>
+        </button>
+        <button class="subtype-btn" data-view="lab" disabled>
+          <span class="circle">🧪</span><span class="label">Lab</span>
+        </button>
+        <button class="subtype-btn" data-view="exam" disabled>
+          <span class="circle">📝</span><span class="label">Exam</span>
+        </button>
+      </div>
+
+      <div id="ttSubPanel"></div>
+
+      <p id="status" class="status"></p>
+      <div id="downloadRow" class="download-row hidden">
+        <button id="downloadBtn">⬇️ Download</button>
+      </div>
+      <div id="output"></div>
+    </div>
+  </section>
+
+  <!-- ============ DAY ORDER ============ -->
+  <section class="screen hidden" id="screen-dayorder">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>DAY ORDER</h1>
+    </header>
+    <div class="hero-wrap">
+      <div class="hero-cal">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <div class="hero-cal-clock"></div>
+      </div>
+    </div>
+    <div class="screen-body">
+      <div class="filters-card">
+        <label>Date
+          <input type="date" id="dayOrderDate">
+        </label>
+      </div>
+      <button class="pill-btn" id="checkDayOrderBtn">✅ Check Day Order</button>
+      <p id="doStatus" class="status"></p>
+      <div id="doOutput"></div>
+    </div>
+  </section>
+
+  <!-- ============ OVERVIEW (menu) ============ -->
+  <section class="screen hidden" id="screen-overview">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>OVERVIEW</h1>
+    </header>
+    <div class="hero-wrap">
+      <div class="hero-cal">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <div class="hero-cal-clock"></div>
+      </div>
+    </div>
+    <div class="screen-body">
+      <nav class="menu-list">
+        <button class="menu-row" data-nav="screen-overview-faculty">
+          <span class="icon-badge">👩‍🏫</span>
+          <span class="row-label">Faculty</span>
+          <span class="chev">›</span>
+        </button>
+        <button class="menu-row" data-nav="screen-overview-course">
+          <span class="icon-badge">📖</span>
+          <span class="row-label">Course</span>
+          <span class="chev">›</span>
+        </button>
+        <button class="menu-row" data-nav="screen-overview-dates">
+          <span class="icon-badge">📅</span>
+          <span class="row-label">Dates</span>
+          <span class="chev">›</span>
+        </button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ OVERVIEW: FACULTY ============ -->
+  <section class="screen hidden" id="screen-overview-faculty">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>FACULTY OVERVIEW</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+      <div class="filters-card">
+        <div class="field-row">
+          <label>Shift
+            <select id="ovFacShift"></select>
+          </label>
+          <label>Class
+            <select id="ovFacClass"></select>
+          </label>
+        </div>
+      </div>
+      <div id="ovFacultyOutput"></div>
+    </div>
+  </section>
+
+  <!-- ============ OVERVIEW: COURSE ============ -->
+  <section class="screen hidden" id="screen-overview-course">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>COURSE OVERVIEW</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+      <div class="filters-card">
+        <div class="field-row">
+          <label>Semester
+            <select id="ovCourseTerm">
+              <option value="ODD">Odd Semester</option>
+              <option value="EVEN">Even Semester</option>
+            </select>
+          </label>
+          <label>Shift
+            <select id="ovCourseShift"></select>
+          </label>
+          <label>Class
+            <select id="ovCourseClass"></select>
+          </label>
+        </div>
+      </div>
+      <div id="ovCourseOutput"></div>
+    </div>
+  </section>
+
+  <!-- ============ OVERVIEW: DATES ============ -->
+  <section class="screen hidden" id="screen-overview-dates">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>DATES OVERVIEW</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+      <div class="filters-card">
+        <div class="field-row">
+          <label>Semester
+            <select id="ovDatesTerm">
+              <option value="ODD">Odd Semester</option>
+              <option value="EVEN">Even Semester</option>
+            </select>
+          </label>
+          <label>Category
+            <select id="ovDatesCategory">
+              <option value="College Dates">College Dates</option>
+              <option value="Internal 1">Internal 1</option>
+              <option value="Internal 2">Internal 2</option>
+              <option value="Model">Model</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div id="ovDatesOutput"></div>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS: ADMIN LOGIN ============ -->
+  <section class="screen hidden" id="screen-settings-login">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>ADMIN LOGIN</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+      <p class="small-note">Enter the Admin User ID and Password to open Settings.</p>
+      <div class="filters-card">
+        <label>User ID
+          <input type="text" id="adminUserId" autocomplete="username" placeholder="User ID">
+        </label>
+        <label>Password
+          <input type="password" id="adminPassword" autocomplete="current-password" placeholder="Password">
+        </label>
+      </div>
+      <button class="pill-btn" id="adminLoginBtn">🔐 Login</button>
+      <p class="save-status" id="adminLoginStatus"></p>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS (menu) ============ -->
+  <section class="screen hidden" id="screen-settings">
+    <header class="top-header">
+      <button class="back-btn" data-back id="settingsBackBtn">&larr;</button>
+      <h1>SETTINGS</h1>
+    </header>
+    <div class="hero-wrap">
+      <div class="hero-cal">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <div class="hero-cal-clock"></div>
+      </div>
+    </div>
+    <div class="screen-body">
+      <nav class="menu-list">
+        <button class="menu-row" data-nav="screen-settings-faculty">
+          <span class="icon-badge">👥</span>
+          <span class="row-label">Manage Faculty</span>
+          <span class="chev">›</span>
+        </button>
+        <button class="menu-row" data-nav="screen-settings-course">
+          <span class="icon-badge">📖</span>
+          <span class="row-label">Manage Course</span>
+          <span class="chev">›</span>
+        </button>
+        <button class="menu-row" data-nav="screen-settings-dates">
+          <span class="icon-badge">📅</span>
+          <span class="row-label">Manage Dates</span>
+          <span class="chev">›</span>
+        </button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS: MANAGE FACULTY ============ -->
+  <section class="screen hidden" id="screen-settings-faculty">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>MANAGE FACULTY</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+      <p class="small-note">Edit a name, or remove a row, then save. Saved changes update faculty.csv directly and are used the next time a timetable is generated.</p>
+      <div id="facultyList"></div>
+      <button class="add-row-btn" id="addFacultyBtn">+ Add Faculty</button>
+      <button class="save-btn" id="saveFacultyBtn">OK — Save Changes</button>
+      <p class="save-status" id="facultySaveStatus"></p>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS: MANAGE COURSE ============ -->
+  <section class="screen hidden" id="screen-settings-course">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>MANAGE COURSE</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+      <p class="small-note">Filter to find courses faster. Edit Course / Faculty / Hours inline, or delete a row, then save.</p>
+      <div class="filter-bar">
+        <select id="courseFilterShift"></select>
+        <select id="courseFilterClass"></select>
+      </div>
+      <div id="courseList"></div>
+      <button class="add-row-btn" id="addCourseBtn">+ Add Course</button>
+      <button class="save-btn" id="saveCourseBtn">OK — Save Changes</button>
+      <p class="save-status" id="courseSaveStatus"></p>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS: MANAGE DATES ============ -->
+  <section class="screen hidden" id="screen-settings-dates">
+    <header class="top-header">
+      <button class="back-btn" data-back>&larr;</button>
+      <h1>MANAGE DATES</h1>
+    </header>
+    <div class="screen-body" style="margin-top:22px;">
+      <div class="tabs">
+        <button class="tab-btn active" id="tabSemesterBtn">Semester Dates</button>
+        <button class="tab-btn" id="tabExamBtn">Exam Dates</button>
+      </div>
+
+      <div id="semesterDatesPanel">
+        <p class="small-note">Format: DD-MM-YYYY. These control the Day Order calculation.</p>
+        <div id="semesterDatesList"></div>
+        <button class="save-btn" id="saveSemesterDatesBtn">OK — Save Changes</button>
+        <p class="save-status" id="semesterDatesSaveStatus"></p>
+      </div>
+
+      <div id="examDatesPanel" class="hidden">
+        <p class="small-note">Date format e.g. 21.08.2026. Used by the Exam Timetable view.</p>
+        <div id="examDatesList"></div>
+        <button class="add-row-btn" id="addExamDateBtn">+ Add Exam Date</button>
+        <button class="save-btn" id="saveExamDatesBtn">OK — Save Changes</button>
+        <p class="save-status" id="examDatesSaveStatus"></p>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

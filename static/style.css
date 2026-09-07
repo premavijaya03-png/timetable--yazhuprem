@@ -1,0 +1,527 @@
+/* =====================================================================
+   Automatic Timetable Generator — mobile-style UI
+   Palette: deep violet header/brand, soft lavender background, white
+   cards. Matches the app mockup: curved purple header, icon rows on
+   the home/settings screens, big pill "Generate" buttons, circular
+   sub-timetable buttons.
+   ===================================================================== */
+:root {
+  --purple-deep: #4c1d95;
+  --purple: #7c3aed;
+  --purple-mid: #8b5cf6;
+  --purple-light: #ede9fe;
+  --lavender-bg: #f5f2fc;
+  --ink: #241b3a;
+  --ink-soft: #5b5470;
+  --card: #ffffff;
+  --border: #e7e1f7;
+  --green: #2e7d32;
+  --amber-bg: #fff3cd;
+  --amber-text: #7a5b00;
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --shadow: 0 4px 16px rgba(76, 29, 149, 0.10);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--lavender-bg);
+  color: var(--ink);
+  font-family: "Segoe UI", "Poppins", Arial, sans-serif;
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--lavender-bg);
+  padding-bottom: 40px;
+  position: relative;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- Curved purple header ---------- */
+.top-header {
+  background: linear-gradient(160deg, var(--purple) 0%, var(--purple-deep) 100%);
+  color: #fff;
+  padding: 22px 20px 46px;
+  border-radius: 0 0 46% 46% / 0 0 54px 54px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.top-header::before,
+.top-header::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.top-header::before { width: 90px; height: 90px; top: -30px; right: -20px; }
+.top-header::after { width: 50px; height: 50px; bottom: 6px; left: 18px; }
+.top-header h1 {
+  margin: 6px 0 0;
+  font-size: 19px;
+  letter-spacing: 0.6px;
+  font-weight: 800;
+}
+.top-header .subtitle {
+  margin: 4px 0 0;
+  font-size: 12px;
+  opacity: 0.85;
+}
+.back-btn {
+  position: absolute;
+  left: 14px;
+  top: 20px;
+  background: rgba(255,255,255,0.16);
+  border: none;
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-btn:hover { background: rgba(255,255,255,0.28); }
+
+/* ---------- Hero illustration (pure CSS calendar glyph) ---------- */
+.hero-wrap {
+  display: flex;
+  justify-content: center;
+  margin: -34px 0 18px;
+}
+.hero-cal {
+  width: 86px;
+  height: 78px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 10px repeat(2, 1fr);
+  gap: 5px;
+  padding: 6px 8px 8px;
+}
+.hero-cal::before {
+  content: "";
+  position: absolute;
+  top: -6px; left: 0; right: 0;
+  height: 16px;
+  background: var(--purple);
+  border-radius: 14px 14px 0 0;
+}
+.hero-cal span {
+  border-radius: 3px;
+  background: var(--purple-light);
+}
+.hero-cal span:nth-child(3n+1) { background: #c7b6f7; }
+.hero-cal-clock {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--purple);
+  border: 3px solid #fff;
+}
+.hero-caption {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin: -8px 0 18px;
+}
+
+/* ---------- Home / Settings menu rows ---------- */
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px;
+}
+.menu-row {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 16px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: left;
+  width: 100%;
+}
+.menu-row:hover { transform: translateY(-1px); }
+.menu-row .icon-badge {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 12px;
+  background: var(--purple);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.menu-row .row-label { flex: 1; }
+.menu-row .chev { color: var(--purple); font-size: 18px; }
+
+/* ---------- Section padding wrapper ---------- */
+.screen-body { padding: 0 20px; }
+
+/* ---------- Filters card ---------- */
+.filters-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.filters-card .field-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.filters-card label {
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.filters-card label.checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.filters-card label.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+select, input[type="date"], input[type="text"] {
+  padding: 9px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-family: inherit;
+  background: #fff;
+  color: var(--ink);
+}
+
+/* ---------- Big pill button (Generate / Check Day Order) ---------- */
+.pill-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(90deg, var(--purple-mid), var(--purple));
+  color: #fff;
+  border: none;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
+  margin-bottom: 18px;
+}
+.pill-btn:disabled { opacity: 0.55; cursor: default; box-shadow: none; }
+.pill-btn:hover:not(:disabled) { filter: brightness(1.06); }
+.pill-btn.secondary {
+  background: #fff;
+  color: var(--purple);
+  border: 1.5px solid var(--purple);
+  box-shadow: none;
+}
+
+/* ---------- 5 sub-timetable circular buttons ---------- */
+.subtype-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.subtype-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 2px;
+}
+.subtype-btn .circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--purple-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  transition: background 0.15s, transform 0.15s;
+}
+.subtype-btn span.label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  text-align: center;
+  line-height: 1.2;
+}
+.subtype-btn.active .circle { background: var(--purple); }
+.subtype-btn.active span.label { color: var(--purple); }
+.subtype-btn:disabled { opacity: 0.4; cursor: default; }
+.subtype-btn:not(:disabled):hover .circle { transform: translateY(-2px); }
+
+/* ---------- Sub-panel (per-view controls + output) ---------- */
+.sub-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.sub-panel h3.panel-title {
+  margin: 0 0 10px;
+  font-size: 14.5px;
+  color: var(--purple-deep);
+}
+.sub-panel .field-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.sub-panel label {
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.show-btn {
+  background: var(--purple);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.show-btn:disabled { opacity: 0.55; cursor: default; }
+
+.status { font-style: italic; color: var(--ink-soft); font-size: 13px; min-height: 18px; margin: 6px 0; }
+
+.download-row { margin: 10px 0 14px; }
+button#downloadBtn {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  font-size: 13.5px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button#downloadBtn:hover { background: #256428; }
+
+/* ---------- Timetable render blocks (reused across views) ---------- */
+.class-block {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+.class-block h2, .class-block h3 {
+  background: var(--purple-deep);
+  color: #fff;
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14.5px;
+}
+.timetable-scroll { overflow-x: auto; }
+table.timetable { border-collapse: collapse; width: 100%; min-width: 560px; }
+table.timetable th, table.timetable td {
+  border: 1px solid #eee;
+  padding: 7px 5px;
+  text-align: center;
+  font-size: 11.5px;
+  vertical-align: middle;
+}
+table.timetable thead th { background: var(--purple-mid); color: #fff; font-weight: 700; }
+table.timetable td.daycell { background: var(--purple-deep); color: #fff; font-weight: 700; width: 55px; }
+table.timetable td.classcell { background: var(--purple-light); color: var(--ink); font-weight: 700; width: 66px; }
+table.timetable td.lunch { background: var(--amber-bg); color: var(--amber-text); font-weight: 700; }
+table.timetable td.empty { color: #b8b0cf; }
+table.timetable td .course-name { font-weight: 700; display: block; }
+table.timetable td .faculty-name { display: block; font-size: 10px; opacity: 0.85; }
+
+.score-line { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 10px; }
+.unplaced-warning {
+  background: var(--amber-bg);
+  border: 1px solid #ffe08a;
+  color: var(--amber-text);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+}
+
+/* ---------- Day Order card ---------- */
+.day-order-box { padding: 16px 18px; }
+.day-order-box h3 { background: none; color: var(--purple-deep); padding: 0 0 8px; font-size: 16px; }
+.day-order-body p { margin: 5px 0; font-size: 13px; color: var(--ink); }
+.day-order-progress { margin-top: 12px; height: 9px; border-radius: 5px; background: #eee; overflow: hidden; }
+.day-order-progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple-mid), var(--purple-deep)); border-radius: 5px; transition: width 0.3s; }
+
+/* ---------- Home screen "Today's Day Order" widget ---------- */
+.home-do-widget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--purple-mid), var(--purple-deep));
+  color: #fff;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+.home-do-widget .home-do-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.home-do-widget .home-do-date { font-size: 12px; opacity: 0.85; }
+.home-do-widget .home-do-label { font-size: 12.5px; opacity: 0.9; }
+.home-do-widget .home-do-order {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+}
+.home-do-widget .home-do-order.holiday { font-size: 15px; font-weight: 600; }
+.home-do-widget.loading { opacity: 0.7; font-size: 13px; padding: 14px 18px; }
+
+/* ---------- Settings: editable list rows ---------- */
+.edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+}
+.edit-row input[type="text"] { flex: 1; border: none; background: transparent; padding: 4px 2px; font-size: 14px; }
+.edit-row input[type="text"]:focus { outline: none; border-bottom: 1.5px solid var(--purple); }
+.icon-btn {
+  border: none;
+  background: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #c0392b;
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+.add-row-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--purple-light);
+  color: var(--purple-deep);
+  border: 1.5px dashed var(--purple);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  margin: 4px 0 16px;
+}
+
+/* course card (multi-field editable row) */
+.course-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+}
+.course-card .course-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--purple);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.course-card .course-fields { display: flex; gap: 8px; flex-wrap: wrap; }
+.course-card .course-fields > div { display: flex; flex-direction: column; gap: 3px; }
+.course-card .course-fields label { font-size: 10px; color: var(--ink-soft); font-weight: 700; }
+.course-card .course-fields input { width: 100%; }
+.course-card .field-course { flex: 2 1 140px; }
+.course-card .field-faculty { flex: 2 1 120px; }
+.course-card .field-hours { flex: 1 1 60px; }
+.course-card .course-row-top { display: flex; justify-content: space-between; align-items: center; }
+
+.filter-bar { display: flex; gap: 8px; margin-bottom: 14px; }
+.filter-bar select { flex: 1; }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--purple);
+  background: #fff;
+  color: var(--purple);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+.tab-btn.active { background: var(--purple); color: #fff; }
+
+.save-btn {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(90deg, var(--purple-mid), var(--purple));
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 800;
+  font-size: 14.5px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
+  margin: 6px 0 10px;
+}
+.save-btn:disabled { opacity: 0.6; cursor: default; }
+.save-status { text-align: center; font-size: 12.5px; min-height: 18px; margin-bottom: 10px; font-weight: 600; }
+.save-status.ok { color: var(--green); }
+.save-status.err { color: #c0392b; }
+
+.small-note { font-size: 11.5px; color: var(--ink-soft); margin: -4px 0 14px; }
+
+@media (min-width: 481px) {
+  #app { box-shadow: 0 0 40px rgba(76,29,149,0.08); }
+}
